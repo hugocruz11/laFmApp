@@ -8,9 +8,10 @@ import {
   Linking,
   TouchableOpacity,
 } from 'react-native';
+import { Container, Header, Input, Icon, Button, Item } from 'native-base';
 import PropTypes from 'prop-types';
 
-function Item({ item }) {
+function Data({ item }) {
   return (
     <View style={styles.listItem}>
       <Image source={{ uri: item.image }} style={styles.imageStyle} />
@@ -33,20 +34,52 @@ function Item({ item }) {
 }
 
 export default class FlatListComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: this.props.source,
+      fulldata: this.props.source,
+      onPress: this.props.onPress,
+      query: '',
+    };
+  }
   static propTypes = {
     source: PropTypes.array.isRequired,
+    onPress: PropTypes.func,
+  };
+
+  search = (txt) => {
+    let text = txt.toLowerCase();
+    let tracks = this.state.fulldata;
+    let filterTracks = tracks.filter((item) => {
+      if (item.name.toLowerCase().match(text)) {
+        return item;
+      }
+    });
+    this.setState({ data: filterTracks });
   };
 
   render() {
-    let { source } = this.props;
+    let { data, onPress } = this.state;
     return (
-      <View style={styles.container}>
-        <FlatList
-          style={{ flex: 1 }}
-          data={source}
-          renderItem={({ item }) => <Item item={item} />}
-        />
-      </View>
+      <Container>
+        <Header searchBar rounded style={{ backgroundColor: '#00aaff' }}>
+          <Item>
+            <Icon name='arrow-back' onPress={onPress} />
+            <Input placeholder='Search' onChangeText={this.search} />
+          </Item>
+          <Button transparent>
+            <Text>Search</Text>
+          </Button>
+        </Header>
+        <View style={styles.container}>
+          <FlatList
+            style={{ flex: 1 }}
+            data={data}
+            renderItem={({ item }) => <Data item={item} />}
+          />
+        </View>
+      </Container>
     );
   }
 }

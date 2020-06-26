@@ -14,12 +14,7 @@ export default class ListArtistScreen extends Component {
   render() {
     return (
       <Container>
-        <HeaderComponent
-          title='Listado de artistas'
-          nameIcon='arrow-back'
-          onPress={this.goBack}
-        />
-        <FlatListComponent source={this.state.artist} />
+        <FlatListComponent source={this.state.artist} onPress={this.goBack} />
       </Container>
     );
   }
