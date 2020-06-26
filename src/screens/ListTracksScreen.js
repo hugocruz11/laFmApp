@@ -16,12 +16,7 @@ export default class ListTracksScreen extends Component {
   render() {
     return (
       <Container>
-        <HeaderComponent
-          title='Listado de canciones'
-          nameIcon='arrow-back'
-          onPress={this.goBack}
-        />
-        <FlatListComponent source={this.state.tracks} />
+        <FlatListComponent source={this.state.tracks} onPress={this.goBack} />
       </Container>
     );
   }

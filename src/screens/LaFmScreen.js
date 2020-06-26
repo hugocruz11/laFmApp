@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { Header } from 'native-base';
+import { Container, Header, Left, Body, Right, Title } from 'native-base';
 import { CardItemButtonComponent } from '../components';
 import { ArtistService, TracksService } from '../services';
 import { CacheProvider } from '../providers';
@@ -26,7 +26,12 @@ export default class LaFmScreen extends Component {
   render() {
     return (
       <View style={{ backgroundColor: '#f1f4f9', height: '100%' }}>
-        <Header style={{ backgroundColor: '#00aaff' }} />
+        <Header style={{ backgroundColor: '#00aaff' }}>
+          <Left />
+          <Body>
+            <Title>LastFm Geo Top</Title>
+          </Body>
+        </Header>
         <CardItemButtonComponent
           title='Top Artistas'
           onPress={this.goTopArtist}
